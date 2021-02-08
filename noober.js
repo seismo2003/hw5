@@ -69,5 +69,64 @@ function renderRides(ridesArray) {
 
 window.addEventListener('DOMContentLoaded', function() {
   // YOUR CODE
-})
+//  let all_filter = document.querySelector('#all-filter')
+//  let noober_pool = document.querySelector('#noober-pool-filter')
+//  let noober_purple = document.querySelector('#noober-purple-filter')
+//  let noober_xl = document.querySelector('#noober-xl-filter')
+//  let noober_x = document.querySelector('#noober-x-filter')
+  
+//  all_filter.addEventListener('click', async function(event){
+//    let response = await fetch(`https://kiei451.com/api/rides.json`)
+//    let json = await response.json()
+//    renderRides(json)
+//  })
+
+//  noober_purple.addEventListener('click', async function(event){
+//    let response = await fetch(`https://kiei451.com/api/rides.json`)
+//    let json = await response.json()
+//    let newArray = []
+//   for (let i=0; i < json.length; i++){
+//      if (levelOfService(json[i]) == "Noober Purple") {
+//        newArray.push(json[i])
+//     }
+//    }
+//    renderRides(newArray)
+// })
+   //let noober_pool = document.querySelector('#noober-pool-filter')
+   //let noober_purple = document.querySelector('#noober-purple-filter')
+   //let noober_xl = document.querySelector('#noober-xl-filter')
+   //let noober_x = document.querySelector('#noober-x-filter')
+   let buttons = ["all-filter", "noober-pool-filter", "noober-purple-filter", "noober-xl-filter", "noober-x-filter"]
+   for (let i=0; i < buttons.length; i++){
+     document.querySelector(`#${buttons[i]}`).addEventListener('click', async function(event){
+       let response = await fetch(`https://kiei451.com/api/rides.json`)
+       let json = await response.json()
+       console.log(`${buttons[i]} was clicked`)
+       let rides_display = document.querySelector('.rides')
+       rides_display.innerHTML = ``
+       if (i == 0){
+         renderRides(json)
+       }
+       else if (i == 1) {
+         let new_json = json.filter(function(item){return levelOfService(item) == "Noober Pool" })
+         renderRides(new_json)
+       }
+       else if (i == 2) {
+         let new_json = json.filter(function(item){return levelOfService(item) == "Noober Purple" })
+         renderRides(new_json)
+       }
+       else if (i == 3) {
+         let new_json = json.filter(function(item){return levelOfService(item) == "Noober XL" })
+         renderRides(new_json)
+       }
+       else if (i == 4) {
+         let new_json = json.filter(function(item){return levelOfService(item) == "Noober X" })
+         renderRides(new_json)
+       }
+       
+     })
+     
+   }
+  }
+)
 
